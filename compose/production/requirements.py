@@ -3,7 +3,6 @@ Click==7.0
 elasticsearch==6.3.1
 Flask==1.0.2
 Flask-Migrate==2.3.0
-Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
 gunicorn==19.9.0
 itsdangerous==1.1.0
@@ -12,7 +11,6 @@ Mako==1.0.7
 MarkupSafe==1.1.0
 psycopg2==2.7.6.1
 python-dateutil==2.7.5
-python-dotenv==0.9.1
 python-editor==1.0.3
 redis==3.0.1
 rq==0.12.0

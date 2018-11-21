@@ -1,0 +1,75 @@
+version: '1.0'
+
+services:
+  postgres:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/docker/postgres/Dockerfile
+      volumes:
+        - postgres-data:/var/lib/postgresql/data
+      ports:
+        - 5100:5432
+      env_file:
+        - ./envs/.local/.postgres
+    networks:
+      - search-net
+  
+  redis:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/docker/redis/Dockerfile
+    networks:
+      - search-net
+    volumes:
+      - redis-data:/data
+
+  elasticsearch:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/docker/elasticsearch/Dockerfile
+    env_file:
+      ./envs/.local/.elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      es-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - search-net
+  
+  flask:
+    build:
+      context: .
+      dockerfile: ./compose/docker/flask/Dockerfile
+    env_file:
+      - ./.envs/.local/.flask
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+    networks:
+      - search-net
+
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  es-data:
+    driver: local
+
+
+networks:
+  search-net:
+    driver: bridge

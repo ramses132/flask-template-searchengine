@@ -1,0 +1,9 @@
+version: '1'
+
+services:
+  postgres:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+      
