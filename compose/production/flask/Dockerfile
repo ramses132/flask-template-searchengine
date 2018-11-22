@@ -9,6 +9,8 @@ RUN adduser -S -G search search
 RUN chown -R search /app
 USER search
 
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
 COPY requirements.txt requirements.txt
 RUN python -m venv venv && pip install --upgrade pip && venv/bin/pip install -r requirements.txt
 
