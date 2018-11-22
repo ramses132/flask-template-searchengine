@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 from flask_migrate import Migrate, upgrade
 
 from app import create_app, db
-
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app(os.getenv('FLASK_CONFIG', 'default'))
 migrate = Migrate(app, db)
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')

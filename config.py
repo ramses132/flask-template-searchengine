@@ -58,8 +58,8 @@ class ProductionConfig(Config):
         app.logger.addHandler(mail_handler)
 
 
-class LocalConfig(ProductionConfig):
-    DEBUG = True
+class LocalConfig(Config):
+    FLASK_DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('LOCAL_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'search-local.sqlite')
 
@@ -78,7 +78,7 @@ class DockerConfig(ProductionConfig):
         app.loger.addHandler(file_handler)
 
 
-class TestingConfig(ProductionConfig):
+class TestingConfig(Config):
     TESTING = True
     SQL_ALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
         'sqlite://'

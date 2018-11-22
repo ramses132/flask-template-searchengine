@@ -1,7 +1,6 @@
 FROM python:3.6-alpine
 LABEL maintainer "Yugo <yugo132@gmail.com>"
 
-RUN mkdir /app
 COPY . /app
 WORKDIR /app
 
@@ -11,11 +10,14 @@ RUN chown -R search /app
 USER search
 
 COPY requirements.txt requirements.txt
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-COPY compose/production/flask/run /run
+RUN python -m venv venv && pip install --upgrade pip && venv/bin/pip install -r requirements.txt
 
-ENV FLASK_ENV="docker"
+
+COPY app app
+COPY migrations migrations
+COPY search.py search.py
+COPY config.py config.py 
+
 EXPOSE 5000
-
-ENTRYPOINT ["/run"]
+COPY compose/production/flask/boot /boot
+ENTRYPOINT ["/boot"]

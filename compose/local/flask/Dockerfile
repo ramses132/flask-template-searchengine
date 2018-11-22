@@ -1,4 +1,5 @@
 FROM python:3.6-alpine
+LABEL maintainer "Yugo <yugo132@gmail.com>"
 
 COPY . /app
 WORKDIR /app
@@ -9,9 +10,14 @@ RUN chown -R search /app
 USER search
 
 COPY requirements.txt requirements.txt
-RUN pip install --upgrade pip
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
+RUN python -m venv venv && pip install --upgrade pip && venv/bin/pip install -r requirements.txt
 
-COPY compose/local/flask/run /run
-ENTRYPOINT ["/run"]
+
+COPY app app
+COPY migrations migrations
+COPY search.py search.py
+COPY config.py config.py 
+
+EXPOSE 5000
+COPY compose/local/flask/boot /boot
+ENTRYPOINT ["/boot"]
