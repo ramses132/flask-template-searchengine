@@ -15,19 +15,18 @@ COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-
 COPY app ./
 COPY migrations ./
 COPY search.py ./
 COPY config.py ./ 
 
-COPY compose/local/flask/boot.sh ./boot.sh
-RUN chown search boot.sh
-RUN chmod a+x ./boot.sh
+COPY ./compose/local/flask/entrypoint.sh ./entrypoint.sh
+RUN chown search entrypoint.sh
+RUN chmod a+x ./entrypoint.sh
 RUN chown -R search ./
 
 USER search
 
 EXPOSE 5000
 
-ENTRYPOINT ["./boot.sh"]
+ENTRYPOINT ["./compose/local/flask/entrypoint.sh"]
