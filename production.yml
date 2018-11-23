@@ -1,9 +1,1 @@
-version: '1'
-
-services:
-  postgres:
-    restart: always
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-      
+# add ur changes like server nginx caddy etc... deployment
