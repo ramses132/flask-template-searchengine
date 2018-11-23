@@ -2,8 +2,6 @@
 ├── app
 │   ├── __init__.py
 │   ├── models.py
-│   └── __pycache__
-│       └── __init__.cpython-36.pyc
 ├── boot.sh
 ├── compose
 │   ├── docker
@@ -69,17 +67,10 @@
 ├── migrations
 │   ├── alembic.ini
 │   ├── env.py
-│   ├── __pycache__
-│   │   └── env.cpython-36.pyc
 │   ├── README
 │   ├── script.py.mako
 │   └── versions
 ├── production.yml
-├── __pycache__
-│   ├── config.cpython-36.pyc
-│   ├── manage.cpython-36.pyc
-│   ├── search.cpython-36.pyc
-│   └── wsgi.cpython-36.pyc
 ├── README.md
 ├── requirements.txt
 ├── search-local.sqlite
