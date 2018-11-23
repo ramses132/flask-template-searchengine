@@ -1,12 +1,13 @@
 .dockerignore
 Dockerfile
-db.sqlite3
+*.sqlite
 __pycache__
 *.pyc
 *.pyo
 *.pyd
 .Python
-venv
+*venv
+boot.sh
 pip-log.txt
 pip-delete-this-directory.txt
 .tox

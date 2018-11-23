@@ -1,8 +1,9 @@
 #!/bin/sh
-source venv/bin/activate
 
+source ./venv/bin/activate
+exec "$@"
 while true; do
-    flask deploy
+    ./venv/bin/python flask deploy
     if [[ "$?" == "0" ]]; then
         break
     fi
@@ -11,4 +12,4 @@ while true; do
 done
 
 
-exec gunicorn -b :5000 --access-logfile - --error-logfile - search:app
+exec ./venv/bin/python gunicorn -b :5000 --access-logfile - --error-logfile - search:app

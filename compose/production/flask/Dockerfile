@@ -1,25 +1,36 @@
 FROM python:3.6-alpine
 LABEL maintainer "Yugo <yugo132@gmail.com>"
 
-COPY . /app
+
 WORKDIR /app
+
+COPY . /app
 
 RUN addgroup -S search
 RUN adduser -S -G search search
-RUN chown -R search /app
-USER search
 
-RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
+RUN apk update && \
+    apk add libpq postgresql-dev gcc python3-dev musl-dev build-base
 
 COPY requirements.txt requirements.txt
-RUN python -m venv venv && pip install --upgrade pip && venv/bin/pip install -r requirements.txt
+
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 
-COPY app app
-COPY migrations migrations
-COPY search.py search.py
-COPY config.py config.py 
+COPY app ./
+COPY migrations ./
+COPY search.py ./
+COPY config.py ./ 
+
+COPY compose/production/flask/boot.sh ./boot.sh
+RUN chown search ./boot.sh
+RUN chmod a+x ./boot.sh
+RUN chown -R search ./
+
+USER search
 
 EXPOSE 5000
-COPY compose/production/flask/boot /boot
-ENTRYPOINT ["/boot"]
+
+ENTRYPOINT ["./boot.sh"]
