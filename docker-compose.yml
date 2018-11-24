@@ -48,6 +48,7 @@ services:
       context: .
       dockerfile: ./compose/docker/flask/Dockerfile
     env_file:
+      - ./.envs/.local/.postgres
       - ./.envs/.local/.flask
     command: gunicorn -b :5000 --access-logfile - --error-logfile - search:app
     ports:
