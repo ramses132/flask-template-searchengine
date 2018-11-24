@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>logged as: {{user.username}}</h1>
+
+{% for product in products %}
+    <div>
+        <p>{{product.name}} description: <b>{{product.description}}</b></p>
+    </div>
+{% endfor %}
+{% endblock content %}
+    

@@ -28,7 +28,7 @@ def create_app(config_name):
     
 
     #a simple page that says hello
-    @app.route('/hello')
+    @app.route('/index')
     def hello():
         return 'Hello, World!'
 
