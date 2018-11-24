@@ -1,6 +1,7 @@
 FROM python:3.6-alpine
 LABEL maintainer "Yugo <yugo132@gmail.com>"
 
+
 WORKDIR /app
 
 COPY . /app

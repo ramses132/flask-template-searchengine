@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 
 services:
   postgres:
@@ -49,6 +49,7 @@ services:
       dockerfile: ./compose/docker/flask/Dockerfile
     env_file:
       - ./.envs/.local/.flask
+    command: gunicorn -b :5000 --access-logfile - --error-logfile - search:app
     ports:
       - 5000:5000
     volumes:

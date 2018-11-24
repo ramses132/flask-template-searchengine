@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 while true; do
     ./venv/bin/python flask deploy
@@ -9,5 +10,4 @@ while true; do
     sleep 5
 done
 
-
-exec gunicorn -b :5000 --access-logfile - --error-logfile - search:app
+exec "$@"

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 while true; do
     flask deploy
@@ -10,4 +11,4 @@ while true; do
 done
 
 
-exec gunicorn -b :5000 --access-logfile - --error-logfile - search:app
+gunicorn -b :5000 --access-logfile - --error-logfile - search:app
